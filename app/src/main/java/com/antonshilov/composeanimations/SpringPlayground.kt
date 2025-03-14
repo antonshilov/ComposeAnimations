@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Slider
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -109,7 +109,7 @@ private fun ValueSlider(
 
     ) {
     Column(modifier) {
-        Text(title + ": ${value.value}", style = MaterialTheme.typography.body1)
+        Text(title + ": ${value.value}", style = MaterialTheme.typography.bodyLarge)
         Slider(value = value.value, onValueChange = { value.value = it }, valueRange = valueRange)
     }
 }

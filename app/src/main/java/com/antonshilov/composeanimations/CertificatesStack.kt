@@ -24,11 +24,11 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Verified
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -74,7 +74,7 @@ fun CertificatesStack() {
         }
         Text(
             text = "Certificates",
-            style = MaterialTheme.typography.h2,
+            style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 24.dp)
                 .align(Alignment.TopStart)
@@ -233,12 +233,12 @@ fun CardContent() {
         Column {
             Text(
                 text = "Compose Animations",
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.titleLarge,
                 color = Color.White
             )
             Text(
                 text = "certificate of excellence",
-                style = MaterialTheme.typography.subtitle2,
+                style = MaterialTheme.typography.bodyMedium,
                 color = Color.LightGray
             )
         }

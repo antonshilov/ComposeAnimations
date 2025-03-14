@@ -10,10 +10,15 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,7 +44,10 @@ fun AirbnbRowPhotos() {
     Row(
         Modifier
             .padding(16.dp)
-            .clickable {
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) {
                 isVisible = !isVisible
             }) {
         images.forEachIndexed { index, url ->
@@ -123,7 +131,18 @@ private fun PhotoSquare(
 @Preview(showBackground = true)
 @Composable
 fun PreviewAirbnbAnimation() {
-    AirbnbRowPhotos()
+    MaterialTheme {
+        Scaffold { paddingValues ->
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                contentAlignment = androidx.compose.ui.Alignment.Center
+            ) {
+                AirbnbRowPhotos()
+            }
+        }
+    }
 }
 
 private val images = listOf(

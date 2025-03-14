@@ -1,8 +1,9 @@
-package com.antonshilov.composeanimations
-
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.AnchoredDraggableState
+import androidx.compose.foundation.gestures.DraggableAnchors
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.anchoredDraggable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
@@ -11,17 +12,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FractionalThreshold
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.rememberSwipeableState
-import androidx.compose.material.swipeable
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -35,42 +33,48 @@ import androidx.compose.ui.unit.sp
 import com.antonshilov.composeanimations.ui.theme.ComposeAnimationsTheme
 import kotlin.math.roundToInt
 
-
 val GreenColor = Color(0xFF2FD286)
 
 enum class ConfirmationState {
     Default, Confirmed
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ConfirmationButton(modifier: Modifier = Modifier) {
 
     val width = 350.dp
     val dragSize = 50.dp
+    val coroutineScope = rememberCoroutineScope()
 
-    val swipeableState = rememberSwipeableState(ConfirmationState.Default)
-    val sizePx = with(LocalDensity.current) { (width - dragSize).toPx() }
-    val anchors = mapOf(0f to ConfirmationState.Default, sizePx to ConfirmationState.Confirmed)
-    val progress = derivedStateOf {
-        if (swipeableState.offset.value == 0f) 0f else swipeableState.offset.value / sizePx
+    val density = LocalDensity.current
+    val sizePx = with(density) { (width - dragSize).toPx() }
+
+    val draggableState = remember {
+        AnchoredDraggableState(
+            initialValue = ConfirmationState.Default,
+            anchors = DraggableAnchors {
+                ConfirmationState.Default at 0f
+                ConfirmationState.Confirmed at sizePx
+            },
+
+            )
     }
+
+    val progress = draggableState.progress(ConfirmationState.Default, ConfirmationState.Confirmed)
 
     Box(
         modifier = modifier
             .width(width)
-            .swipeable(
-                state = swipeableState,
-                anchors = anchors,
-                thresholds = { _, _ -> FractionalThreshold(0.5f) },
-                orientation = Orientation.Horizontal
+            .anchoredDraggable(
+                state = draggableState,
+                orientation = Orientation.Horizontal,
             )
             .background(GreenColor, RoundedCornerShape(dragSize))
     ) {
         Column(
             Modifier
                 .align(Alignment.Center)
-                .alpha(1f - progress.value),
+                .alpha(1f - progress),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text("Order 1000 rub", color = Color.White, fontSize = 18.sp)
@@ -79,9 +83,9 @@ fun ConfirmationButton(modifier: Modifier = Modifier) {
 
         DraggableControl(
             modifier = Modifier
-                .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) }
+                .offset { IntOffset(draggableState.offset.roundToInt(), 0) }
                 .size(dragSize),
-            progress = progress.value
+            progress = progress
         )
     }
 
@@ -99,8 +103,8 @@ private fun DraggableControl(
             .background(Color.White, CircleShape),
         contentAlignment = Alignment.Center
     ) {
-        val isConfirmed = derivedStateOf { progress >= 0.8f }
-        Crossfade(targetState = isConfirmed.value) {
+        val isConfirmed = progress >= 0.8f
+        Crossfade(targetState = isConfirmed) {
             if (it) {
                 Icon(
                     imageVector = Icons.Filled.Done,
