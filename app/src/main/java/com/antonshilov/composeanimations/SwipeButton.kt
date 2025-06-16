@@ -1,3 +1,5 @@
+package com.antonshilov.composeanimations
+
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.AnchoredDraggableState

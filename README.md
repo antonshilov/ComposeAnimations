@@ -12,3 +12,9 @@ https://user-images.githubusercontent.com/8353068/149623082-444043b8-61cf-43f0-9
 
 ## [SpringPlayground.kt](app/src/main/java/com/antonshilov/composeanimations/SpringPlayground.kt)
 https://user-images.githubusercontent.com/8353068/174637974-3abf0e0c-071f-46aa-9423-474b486d0784.mp4
+
+## AnimationGallery
+
+Use `AnimationGallery` to explore all available animations in one screen. The
+list uses snapping scroll behavior so each example is centered as you swipe
+through. Tap on any preview to open it in a dedicated screen.

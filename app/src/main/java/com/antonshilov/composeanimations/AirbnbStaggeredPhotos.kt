@@ -36,6 +36,11 @@ private val rotationDegrees = listOf(0f, -10f, 10f)
 @Preview()
 @Composable
 private fun PreviewStaggeredPhotos() {
+    AirbnbStaggeredPhotos()
+}
+
+@Composable
+fun AirbnbStaggeredPhotos() {
     var run by remember { mutableStateOf(true) }
     Box(
         Modifier
@@ -69,7 +74,6 @@ private fun PreviewStaggeredPhotos() {
             )
         }
     }
-
 }
 
 @Composable
