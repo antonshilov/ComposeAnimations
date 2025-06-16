@@ -1,26 +1,26 @@
 [versions]
 # Plugins
-androidGradlePlugin = "8.9.0"
-kotlin = "2.1.10"
+androidGradlePlugin = "8.10.1"
+kotlin = "2.1.21"
 
 # Libraries
-compose = "1.8.0-rc01"
+compose = "1.8.2"
 composeCompiler = "1.5.15"
-coreKtx = "1.15.0"
-lifecycleRuntimeKtx = "2.8.7"
+coreKtx = "1.16.0"
+lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
-coilCompose = "2.1.0"
+coilCompose = "2.7.0"
 composeMaterialColors = "1.0.0"
 composeMaterialIcons = "1.7.8"
 
 # SDK versions
-compileSdk = "35"
+compileSdk = "36"
 minSdk = "21"
-targetSdk = "35"
+targetSdk = "36"
 
 # JVM targets
 jvmTarget = "1.8"
-material3Android = "1.3.1"
+material3Android = "1.3.2"
 
 [libraries]
 # AndroidX
